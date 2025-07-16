@@ -68,6 +68,51 @@ Na pasta MOVIMENTO, se quiser zipar TODAS as pastas em 1 ZIP só:
 apt-get install zip
 zip -r ARQUIVO.zip $(ls -d1 16072021_1*/)
 ___
+## PDV, Gerar Movimento SDF manualmente
+
+Verificar data dos arquivos ZMV
+```
+ls -ltr *.ZMV
+```
+Verificar assinatura CODFON do PDV
+```
+cat ETIQUETL.TXT
+```
+Criar diretório com data e número do ECF e copiar o arquivo ZMV com conversor
+```
+mkdir 11062025_12
+```
+```
+cp -a 0C02YGCZ.ZMV 11062025_12
+```
+```
+cp -a lnx_conv_CZ* 11062025_12
+```
+
+Acessar o diretório e "converter" arquivo ZMV para arquivo TRA
+```
+cd 11062025_12
+```
+```
+cp -a 0C02YGCZ.ZMV TH01HKCZ.TRA
+```
+
+Converter arquivo TRA para cupons de venda e arquivo de SOMA
+
+>-s = Cria vários cupons (SDF 2)  
+>-m Cria o arquivo de SOMA (SDF 1)  
+```
+./lnx_conv_CZ_u64 -s
+```
+```
+./lnx_conv_CZ_u64 -m
+```
+
+Verificar data gravada nos arquivos de cupons do ECF
+```
+cut -c26-31 *.012
+```
+___
 ## Manager, Gerar Movimento SDF
 
 Controle > Interfaces > Documentos eletrônicos em SDF:
